@@ -1,0 +1,22 @@
+{
+  "name": "motovis",
+  "version": "0.0.1",
+  "description": "Motorbikes data visualiser",
+  "author": "Yoann BOYER <contact@yoannboyer.com>",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yboyer/motovis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yboyer/motovis/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^2.2.10"
+  }
+}
