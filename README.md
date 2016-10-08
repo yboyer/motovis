@@ -19,7 +19,13 @@ cd motovis
 npm i
 ```
 ### Fill the MongoDB database
-##### Crawl data with Scrapy:
+#### From the dump
+##### Restore data With `mongorestore`:
+```
+mongorestore
+```
+#### With Scrapy
+##### Crawl data of websites:
 ```bash
 cd crawler
 scrapy crawl bikes
