@@ -17,10 +17,12 @@ NEWSPIDER_MODULE = 'Bikes.spiders'
 
 
 # MONGO
-MONGODB_SERVER = "localhost"
+MONGODB_SERVER = 'localhost'
 MONGODB_PORT = 27017
-MONGODB_DB = "bikecrawlers"
-MONGODB_COLLECTION = "Bikes"
+MONGODB_DB = 'bikecrawlers'
+MONGODB_COLLECTION = {
+    'BikeItem': 'Bikes'
+}
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

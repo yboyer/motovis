@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import pymongo
+from pymongo import MongoClient
 from scrapy.conf import settings
 from scrapy.exceptions import DropItem
 from scrapy import log
@@ -13,26 +13,18 @@ class MongoDBPipeline(object):
         return cls(
             settings.get("SERVER"),
             settings.get("PORT"),
-            settings.get("DB"),
-            settings.get("COLLECTION")
+            settings.get("DB")
         )
 
-    def __init__(self, server, port, db, collection):
-        connection = pymongo.MongoClient(
+    def __init__(self, server, port, db):
+        connection = MongoClient(
             server or settings['MONGODB_SERVER'],
             int(port or settings['MONGODB_PORT'])
         )
-        db = connection[db or settings['MONGODB_DB']]
-        self.collection = db[collection or settings['MONGODB_COLLECTION']]
+        self.db = connection[db or settings['MONGODB_DB']]
 
     def process_item(self, item, spider):
-        valid = True
-        for data in item:
-            if not data:
-                valid = False
-                raise DropItem("Missing {0}!".format(data))
-        if valid:
-            self.collection.insert(dict(item))
-            log.msg("added to MongoDB database!",
-                    level=log.DEBUG, spider=spider)
+        collection = self.db[settings['MONGODB_COLLECTION'][type(item).__name__]]
+        collection.insert(dict(item))
+        log.msg("added to MongoDB database!", level=log.DEBUG, spider=spider)
         return item

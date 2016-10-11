@@ -12,7 +12,7 @@ import win32api
 ###############
 
 class BikesSpider(scrapy.Spider):
-    name = "bikes"
+    name = "motoplanete"
 
     def start_requests(self):
         url = 'http://www.motoplanete.com/constructeurs/constructeursIndex/index.php'

@@ -28,8 +28,7 @@ mongorestore
 ##### Crawl data of websites:
 ```bash
 cd crawler
-scrapy crawl bikes
-# scrapy crawl bikes -s SERVER=localhost -s PORT=27017 -s DB=bikecrawlers -s COLLECTION=Bikes
+python core.py
 ```
 ### Run
 ##### Run server and start listening on port `3000`
