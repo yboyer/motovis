@@ -19,9 +19,11 @@ NEWSPIDER_MODULE = 'Bikes.spiders'
 # MONGO
 MONGODB_SERVER = 'localhost'
 MONGODB_PORT = 27017
-MONGODB_DB = 'bikecrawlers'
+MONGODB_DB = 'bikecrawler'
 MONGODB_COLLECTION = {
-    'BikeItem': 'Bikes'
+    'BikeItem': 'Bikes',
+    'WheelInfo': 'Wheels',
+    'AccessoriesInfo': 'Accessories'
 }
 
 

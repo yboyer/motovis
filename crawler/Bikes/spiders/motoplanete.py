@@ -79,19 +79,19 @@ class BikesSpider(scrapy.Spider):
             bike['info']['power'] = torqueRes[0]
 
         # WHEELS
-        frontWeel = res.css('ul.trainavant a::text').re(r"(\d+) / (\d+) - (\d+)")
-        if len(frontWeel) == 3:
-            bike['info']['frontWeel'] = {
-                'width': frontWeel[0],
-                'height': frontWeel[1],
-                'diameter': frontWeel[2]
+        frontWheel = res.css('ul.trainavant a::text').re(r"(\d+) / (\d+) - (\d+)")
+        if len(frontWheel) == 3:
+            bike['info']['frontWheel'] = {
+                'width': frontWheel[0],
+                'height': frontWheel[1],
+                'diameter': frontWheel[2]
             }
-        backWeel = res.css('ul.trainarriere a::text').re(r"(\d+) / (\d+) - (\d+)")
-        if len(frontWeel) == 3:
-            bike['info']['backWeel'] = {
-                'width': frontWeel[0],
-                'height': frontWeel[1],
-                'diameter': frontWeel[2]
+        backWheel = res.css('ul.trainarriere a::text').re(r"(\d+) / (\d+) - (\d+)")
+        if len(frontWheel) == 3:
+            bike['info']['backWheel'] = {
+                'width': frontWheel[0],
+                'height': frontWheel[1],
+                'diameter': frontWheel[2]
             }
 
         return bike

@@ -2,11 +2,20 @@
 
 import scrapy
 
+class AccessoriesInfo(scrapy.Item):
+    price = scrapy.Field()
+    stars = scrapy.Field()
+    url = scrapy.Field()
+    imgUrl = scrapy.Field()
+    name = scrapy.Field()
 
-class WeelInfo():
+
+class WheelInfo(scrapy.Item):
     width = scrapy.Field()
     height = scrapy.Field()
     diameter = scrapy.Field()
+    imgUrl = scrapy.Field()
+    url = scrapy.Field()
 
 class BikeInfo(scrapy.Item):
     imgUrl = scrapy.Field()
@@ -17,8 +26,8 @@ class BikeInfo(scrapy.Item):
     torque = scrapy.Field()
     capacity = scrapy.Field()
     weight = scrapy.Field()
-    frontWeel = scrapy.Field(serializer=WeelInfo)
-    backWeel = scrapy.Field(serializer=WeelInfo)
+    frontWheel = scrapy.Field(serializer=WheelInfo)
+    backWheel = scrapy.Field(serializer=WheelInfo)
 
 class BikeItem(scrapy.Item):
     name = scrapy.Field()
