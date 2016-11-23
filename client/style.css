@@ -1,0 +1,56 @@
+body {
+  font: 300 36px "Helvetica Neue";
+  height: 640px;
+  margin: 80px 160px 80px 160px;
+  overflow: hidden;
+  position: relative;
+  width: 960px;
+}
+
+body > svg {
+  position: absolute;
+  top: -80px;
+  left: -160px;
+}
+
+
+path.arc {
+  cursor: move;
+  fill: #fff;
+}
+
+.node {
+  font-size: 10px;
+}
+.node:hover {
+  fill: #1f77b4;
+}
+
+.link {
+  fill: none;
+  stroke: #1f77b4;
+  stroke-opacity: 0.4;
+  pointer-events: none;
+}
+
+.link.source,
+.link.target {
+  stroke-opacity: 1;
+  stroke-width: 2px;
+}
+
+.node.target {
+  fill: #d62728 !important;
+}
+
+.link.source {
+  stroke: #d62728;
+}
+
+.node.source {
+  fill: #2ca02c;
+}
+
+.link.target {
+  stroke: #2ca02c;
+}
