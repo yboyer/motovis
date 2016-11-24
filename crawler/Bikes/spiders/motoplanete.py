@@ -87,11 +87,11 @@ class BikesSpider(scrapy.Spider):
                 'diameter': frontWheel[2]
             }
         backWheel = res.css('ul.trainarriere a::text').re(r"(\d+) / (\d+) - (\d+)")
-        if len(frontWheel) == 3:
+        if len(backWheel) == 3:
             bike['info']['backWheel'] = {
-                'width': frontWheel[0],
-                'height': frontWheel[1],
-                'diameter': frontWheel[2]
+                'width': backWheel[0],
+                'height': backWheel[1],
+                'diameter': backWheel[2]
             }
 
         return bike
