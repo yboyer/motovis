@@ -30,7 +30,7 @@ class BikesSpider(scrapy.Spider):
             url = el.css('::attr(href)').extract_first()
             date = el.css('::text').extract_first()
 
-            req = scrapy.Request(res.urljoin(url), callback=self.parseModels)
+            req = scrapy.Request(res.urljoin(url), callback=self.parseModels, dont_filter=True)
             req.meta['date'] = date
             yield req
 
