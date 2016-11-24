@@ -25,7 +25,7 @@ npm i
 #### From the dump
 ##### Restore data With `mongorestore`:
 ```
-mongorestore
+mongorestore --gzip
 ```
 #### With Scrapy
 ##### Crawl data of websites:
