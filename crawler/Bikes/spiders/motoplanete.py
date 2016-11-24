@@ -2,7 +2,7 @@
 
 import scrapy
 from Bikes.items import BikeItem
-import win32api
+# import win32api
 
 ## PAGE TREE ##
 # Contructors ->
