@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Motovis</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Motovis</h1>
+
+    <div id="flex">
+      <svg width="800" height="800"></svg>
+      <div id="desc">
+        <a href="" title="Ouvrir la page de description" target="_blank">
+          <figure>
+            <img src="" alt="">
+            <figcaption>
+              <span id="brand"></span>
+              <span id="model"></span>
+              <span class="date">(<span id="date"></span>)</span>
+            </figcaption>
+          </figure>
+          <span class="price"><span id="price"></span> €</span>
+          <div id="type"></div>
+        </a>
+        <hr>
+        <h3>Fiche technique</h3>
+        <div class="content">
+          <h4>Moteur</h4>
+          <ul>
+            <li><span id="cc"></span> cm<sup>3</sup></li>
+            <li>Couple de <span id="power"></span> mkg</li>
+            <li>Boîte <span id="gears"></span> vitesses</li>
+            <li>Transmission <span id="transmission"></span></li>
+          </ul>
+          <hr>
+        </div>
+        <div class="content">
+          <h4>Partie-cycle</h4>
+          <ul>
+            <li>Pneus <span id="fw"></span>/<span id="fh"></span> x <span id="fd"></span> AV ; <span id="bw"></span>/<span id="bh"></span> x <span id="bd"></span> AR</li>
+            <li>Réservoir <span id="capacity"></span> litres</li>
+          </ul>
+        </div>
+      </div>
+      <div id="wheels"></div>
+    </div>
+    <h2>Accessoires</h2>
+    <div id="accessories"></div>
+
+    <footer>Data from <a href="http://www.motoblouz.com" target="_blank">motoblouz</a>, <a href="http://www.dafy-moto.com" target="_blank">dafy moto</a> and <a href="http://www.motoplanete.com" target="_blank">motoplanete</a>.</footer>
+    <script type="text/javascript" src="d3.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
