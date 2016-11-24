@@ -44,7 +44,6 @@ class BikesSpider(scrapy.Spider):
                 brand= el.css('meta[itemprop="brand"]::attr(content)').extract_first(),
                 price= el.css('meta[itemprop="price"]::attr(content)').extract_first(),
                 model= el.css('meta[itemprop="model"]::attr(content)').extract_first(),
-                imgUrl= el.css('img[itemprop="image"]::attr(src)').extract_first(),
                 link= el.css('a[itemprop="url"]::attr(href)').extract_first()
             )
 
@@ -57,6 +56,8 @@ class BikesSpider(scrapy.Spider):
     def parseModel(self, res):
         bike = res.meta['bike']
         bike['info'] = {}
+
+        bike['imgUrl'] = res.css('.zoom_image::attr(href)').extract_first()
 
         bike['info']['imgUrl'] = res.css('div#imageTech img::attr(src)').extract_first()
         bike['info']['gears'] = res.css('ul.transmission li::text')[1].re(r"(\d)")[0]
