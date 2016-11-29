@@ -2,7 +2,7 @@
 
 import scrapy
 from Bikes.items import BikeItem
-import win32api
+# import win32api
 
 ## PAGE TREE ##
 # Contructors ->
@@ -30,7 +30,7 @@ class BikesSpider(scrapy.Spider):
             url = el.css('::attr(href)').extract_first()
             date = el.css('::text').extract_first()
 
-            req = scrapy.Request(res.urljoin(url), callback=self.parseModels)
+            req = scrapy.Request(res.urljoin(url), callback=self.parseModels, dont_filter=True)
             req.meta['date'] = date
             yield req
 
@@ -44,7 +44,6 @@ class BikesSpider(scrapy.Spider):
                 brand= el.css('meta[itemprop="brand"]::attr(content)').extract_first(),
                 price= el.css('meta[itemprop="price"]::attr(content)').extract_first(),
                 model= el.css('meta[itemprop="model"]::attr(content)').extract_first(),
-                imgUrl= el.css('img[itemprop="image"]::attr(src)').extract_first(),
                 link= el.css('a[itemprop="url"]::attr(href)').extract_first()
             )
 
@@ -57,6 +56,8 @@ class BikesSpider(scrapy.Spider):
     def parseModel(self, res):
         bike = res.meta['bike']
         bike['info'] = {}
+
+        bike['imgUrl'] = res.css('.zoom_image::attr(href)').extract_first()
 
         bike['info']['imgUrl'] = res.css('div#imageTech img::attr(src)').extract_first()
         bike['info']['gears'] = res.css('ul.transmission li::text')[1].re(r"(\d)")[0]
@@ -87,11 +88,11 @@ class BikesSpider(scrapy.Spider):
                 'diameter': frontWheel[2]
             }
         backWheel = res.css('ul.trainarriere a::text').re(r"(\d+) / (\d+) - (\d+)")
-        if len(frontWheel) == 3:
+        if len(backWheel) == 3:
             bike['info']['backWheel'] = {
-                'width': frontWheel[0],
-                'height': frontWheel[1],
-                'diameter': frontWheel[2]
+                'width': backWheel[0],
+                'height': backWheel[1],
+                'diameter': backWheel[2]
             }
 
         return bike

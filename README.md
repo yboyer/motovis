@@ -1,11 +1,14 @@
-# motovis
+# Motovis
 > Motorbikes data visualiser
+
+![](.github/screen.png)
 
 ## Prerequisites:
   - `MongoDB`
+  - `Node.js`
+  - `npm`
   - `Scrapy`
     - `pymongo`
-  - `Node.js`
 
 ## Usage:
 ### Install
@@ -22,13 +25,17 @@ npm i
 #### From the dump
 ##### Restore data With `mongorestore`:
 ```
-mongorestore
+mongorestore --gzip
 ```
 #### With Scrapy
 ##### Crawl data of websites:
 ```bash
 cd crawler
 python core.py
+```
+_or with individual spider_
+```bash
+scrapy crawl [dafy | motoblouz | motoplanete]
 ```
 ### Run
 ##### Run server and start listening on port `3000`

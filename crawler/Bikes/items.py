@@ -16,6 +16,8 @@ class WheelInfo(scrapy.Item):
     diameter = scrapy.Field()
     imgUrl = scrapy.Field()
     url = scrapy.Field()
+    name = scrapy.Field()
+    logoUrl = scrapy.Field()
 
 class BikeInfo(scrapy.Item):
     imgUrl = scrapy.Field()
