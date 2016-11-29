@@ -1,3 +1,4 @@
+// Méthode de réganisation alphanumérique
 const reA = /[^a-zA-Z]/g;
 const reN = /[^0-9]/g;
 function sortAlphaNum(a, b) {
@@ -26,12 +27,15 @@ function sortAlphaNum(a, b) {
   }
 }
 
+
 module.exports = {
+  // Base de l'arborescence
   data: {
     name: 'bikes',
     children: []
   },
 
+  // Méthode de réorganisation
   _sort(array) {
     array.sort(sortAlphaNum);
 
@@ -42,11 +46,17 @@ module.exports = {
     });
   },
 
+  // Réorganise l'arborescence
   sort() {
     this._sort(this.data.children);
   },
 
-  // Insert data to a given path
+  // Vide l'arborescence
+  clear() {
+    this.data.children.length = 0;
+  },
+
+  // Ajout la donnée au chemin donné
   insertTo(path, value) {
     let node = this.data;
 
@@ -66,6 +76,7 @@ module.exports = {
         node = node.children[index - 1];
       }
     });
+
     delete node.children;
     node.data = value;
   }

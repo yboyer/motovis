@@ -1,11 +1,13 @@
 //@flow
 var m = [20, 120, 20, 50];
-var w = 900 - m[1] - m[3];
+var w = 1000 - m[1] - m[3];
 var h = 800 - m[0] - m[2];
 var i = 0;
 var root;
 
+// Liste d'élément DOM
 const elements = {
+  selector: document.querySelector('#selector'),
   a: document.querySelector('a'),
   desc: document.querySelector('#desc'),
   img: document.querySelector('img'),
@@ -29,66 +31,21 @@ const elements = {
   accessories: document.querySelector('#accessories')
 };
 
-var tree = d3.layout.tree().size([h, w]);
 
+// Modules D3.js
+var tree = d3.layout.tree().size([h, w]);
 var diagonal = d3.svg.diagonal()
   .projection(function(d) {
     return [d.y, d.x];
   });
 
-var vis = d3.select('svg')
+
+var svg = d3.select('svg')
   .attr('width', w + m[1] + m[3])
   .attr('height', h + m[0] + m[2])
   .append('svg:g')
   .attr('transform', 'translate(' + m[3] + ',' + m[0] + ')');
 
-function unselectAll(d) {
-  d.selected = false;
-  if (d.children) {
-    d.children.forEach(unselectAll);
-  }
-}
-
-d3.json('data.json', function(json) {
-  root = json;
-  root.x0 = h / 2;
-  root.y0 = 0;
-
-  function toggleAll(d) {
-    if (d.children) {
-      d.children.forEach(toggleAll);
-      toggle(d);
-    }
-  }
-
-  // Initialize the display to show a few nodes.
-  root.children.forEach(toggleAll);
-  toggle(root.children[0]);
-  toggle(root.children[0].children[25]);
-  toggle(root.children[0].children[25].children[10]);
-  toggle(root.children[0].children[25].children[10].children[7]);
-
-  update(root);
-});
-
-d3.json('accessories.json', function(json) {
-
-  var html = '';
-  json.forEach(function(accessory) {
-    html += '<a href="' + accessory.url + '" target="_blank">';
-    html += '  <div class="accessory">';
-    html += '    <img src="' + accessory.imgUrl + '" alt="">';
-    html += '    <div class="name">' + accessory.name + '</div>';
-    html += '    <div class="data">';
-    html += '      <span>' + accessory.price + ' €</span>';
-    html += '      <span>' + accessory.stars + '/5</span>';
-    html += '    </div>';
-    html += '  </div>';
-    html += '</a>';
-  });
-
-  elements.accessories.innerHTML = html;
-});
 
 function update(source) {
   var duration = d3.event && d3.event.altKey ? 5000 : 500;
@@ -102,7 +59,7 @@ function update(source) {
   });
 
   // Update the nodes…
-  var node = vis.selectAll('g.node')
+  var node = svg.selectAll('g.node')
     .data(nodes, function(d) {
       return d.id || (d.id = ++i);
     });
@@ -117,9 +74,7 @@ function update(source) {
       toggle(d);
       update(d);
     });
-
   nodeEnter.append('svg:circle');
-
   nodeEnter.append('svg:text')
     .attr('x', function(d) {
       return d.children || d._children ? -10 : 10;
@@ -177,7 +132,7 @@ function update(source) {
     .style('fill-opacity', 1e-6);
 
   // Update the links…
-  var link = vis.selectAll('path.link')
+  var link = svg.selectAll('path.link')
     .data(tree.links(nodes), function(d) {
       return d.target.id;
     });
@@ -226,7 +181,7 @@ function update(source) {
   });
 }
 
-
+// Converti le tableau en html
 function wheelsToHtml(array) {
   if (!array) {
     return '';
@@ -244,6 +199,34 @@ function wheelsToHtml(array) {
     html += '</a>';
   });
   return html;
+}
+
+// Récupère les Accessoires
+d3.json('accessories.json', function(json) {
+
+  var html = '';
+  json.forEach(function(accessory) {
+    html += '<a href="' + accessory.url + '" target="_blank">';
+    html += '  <div class="accessory">';
+    html += '    <img src="' + accessory.imgUrl + '" alt="">';
+    html += '    <div class="name">' + accessory.name + '</div>';
+    html += '    <div class="data">';
+    html += '      <span>' + accessory.price + ' €</span>';
+    html += '      <span>' + accessory.stars + '/5</span>';
+    html += '    </div>';
+    html += '  </div>';
+    html += '</a>';
+  });
+
+  elements.accessories.innerHTML = html;
+});
+
+// Déselectionne les motos
+function unselectAll(d) {
+  d.selected = false;
+  if (d.children) {
+    d.children.forEach(unselectAll);
+  }
 }
 
 // Toggle children.
@@ -302,3 +285,42 @@ function toggle(d) {
     d.selected = true;
   }
 }
+
+// Récupère les informations
+function getData(sort) {
+  d3.json('data.json?sort='+sort, function(json) {
+    root = json;
+    root.x0 = h / 2;
+    root.y0 = 0;
+
+    function toggleAll(d) {
+      if (d.children) {
+        d.children.forEach(toggleAll);
+        toggle(d);
+      }
+    }
+
+    // Initialize the display to show a few nodes.
+    root.children.forEach(toggleAll);
+
+    toggle(root.children[0]);
+    if (root.children[0].name === 'années') {
+      toggle(root.children[0].children[25]);
+      toggle(root.children[0].children[25].children[10]);
+      toggle(root.children[0].children[25].children[10].children[7]);
+    } else {
+      toggle(root.children[0].children[11]);
+      toggle(root.children[0].children[11].children[15]);
+      toggle(root.children[0].children[11].children[15].children[4]);
+    }
+
+    update(root);
+  });
+}
+
+// Event lors du changement
+elements.selector.onchange = function() {
+  getData(this.value);
+};
+
+elements.selector.onchange();
