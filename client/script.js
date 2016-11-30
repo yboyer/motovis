@@ -1,6 +1,6 @@
 //@flow
 var m = [20, 120, 20, 50];
-var w = 1000 - m[1] - m[3];
+var w = 900 - m[1] - m[3];
 var h = 800 - m[0] - m[2];
 var i = 0;
 var root;
